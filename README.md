@@ -15,10 +15,10 @@ You can see the compiled versions of the PDFs in the [artifacts](https://github.
 You can fork the repository and quickly begin using it. If you are a student like me and you are writing your assignments in $\LaTeX$, you can create a folder inside the root, named `./MyClass`, copy the template using `cp ./Template/template.tex ./MyClass/MyAssignment.tex`, and begin writing. After you are done, just push your changes and you will see (under Actions in your repository) that the build started. Once it is done building, you can download your artifacts or read it on GitHub by switching to `artifacts`.
 
 ## Why Automated Builds? ⚙️
-I write my assignments and sometimes take my notes in $\LaTeX$, because the result it amazing and I really like it, and feel the need to take a look at my notes/assignments whenever I need them. Using this integrated setup, whenever I make changes to something, GitHub actions builds my project and pushes the artifacts to the `artifacts` branch. So, I can always read them, from my phone or any other device that is able to connect to internet.
+I write my assignments and sometimes take my notes in $\LaTeX$ and feel the need to take a look at my notes/assignments whenever I feel so. Using this integrated setup, whenever I make changes to something, GitHub actions builds my project and pushes the artifacts to the `artifacts` branch. So, I can always read them, from my phone or any other device that is able to connect to the internet.
 
 ## Why Nix? ❄️
-I am a NixOS user and really love Nix package manager. I think it does an awesome job on managing $\LaTeX$ dependencies as well!
+I am a NixOS user and really like [Nix package manager](https://github.com/NixOS/nixpkgs). I think it does an awesome job on managing $\LaTeX$ dependencies as well! Also, I want to see which packages I am using in my project so that I can diagnose any possible problems easily.
 
 ### Adding new fonts 🔤
 You can add new fonts to use in your $\LaTeX$ project. To do so, open [your flake file](./flake.nix), you are going to see the following line:
@@ -52,10 +52,10 @@ This is my code with Fira Code font
 \end{myenvironment}
 ```
 
-If you have local font files, as long as you add them to your `$OSFONTDIR` environment variable, and declare add them using `fontspec` in your $\LaTeX$ project, you will be able to use them in your project.
+If you have local font files, as long as you add them to your `$OSFONTDIR` environment variable, and declare them using `fontspec` in your project, you will be able to use them.
 
 ### Adding new packages 📦
-Adding new packages, if they are in TeXLive, is pretty easy. You just need to find its name, search on [NixOS Search](search.nixos.org) and add it to your flake file like this:
+Adding new packages, if they are in TeXLive, is pretty easy. You just need to find its name: search on [NixOS Search](search.nixos.org) and add it to your flake file like this:
 
 ```nix
 tex = pkgs.texlive.combine {
@@ -64,22 +64,57 @@ tex = pkgs.texlive.combine {
 ```
 
 ### What should I do if the package is not in TeXLive or I couldn't find it in [NixOS Search](search.nixos.org)? 🤔
-First of all, don't worry! In your root, you are going to find a folder named `./packages` which you can rename to whatever you want (`styles` could be a good name). Then, you are going to want to download and copy the `sty` files into this folder. If you look at the contents of [packages](./packages), you are going to see that there already is a file named [catppuccinpalette.sty](./packages/catppuccinpalette.sty). Even though this package is in TeXLive, it wasn't uploaded to [nixpks](https://github.com/nixos/nixpkgs), and I downloaded the `sty` file from [CTAN](https://www.ctan.org/pkg/catppuccinpalette) and copied it to [packages](./packages) folder. Then, I was able to use it just like any other package:
+In your root, you are going to find a folder named `./packages` which you can rename to whatever you want (`styles` could be a good name). Then, you are going to want to download and copy the `sty` files into this folder. If you look at the contents of [packages](./packages), you are going to see that there already is a file named [catppuccinpalette.sty](./packages/catppuccinpalette.sty). Even though this package is in TeXLive, it wasn't uploaded to [nixpks](https://github.com/nixos/nixpkgs), and I downloaded the `sty` file from [CTAN](https://www.ctan.org/pkg/catppuccinpalette) and copied it to [packages](./packages) folder. Then, I was able to use it just like any other package:
 
 ```tex
 \usepackage[mocha]{catppuccinpalette}
 ```
 
-If you have many different folders placed in different locations, maybe one of them is not even in your project folder, you can manually change the environment variable `$TEXINPUTS` to include all of them.
+If you have many different folders placed in different locations, maybe some of them are not even in your project folder, you can manually change the environment variable `$TEXINPUTS` to include all of them.
 
 ## How am I using it? 🚀
-I am a Neovim user (love it!) and I use [Zathura](https://github.com/pwmt/zathura) to view PDFs, [VimTex](https://github.com/lervag/vimtex) as a general purpose Neovim plugin that integrates $\LaTeX$ and Neovim (it is awesome!), and [TexLab](https://github.com/latex-lsp/texlab) as my LSP (it is pretty awesome as well). I also have several snipets, even though I try to avoid them as much as possible, which is why I am using [LuaSnip](https://github.com/L3MON4D3/LuaSnip). My dotfiles are private, but you can see how you can configure these plugins and language servers to your Neovim setup in their documentation, and I think **most definitely** you should take a look at [this guide](https://ejmastnak.com/tutorials/vim-latex/intro/) by [ejmastnak](https://github.com/ejmastnak)!
+You can see one of my notes in [./Example/Example.tex](./Example/Example.tex) and the produced PDF in [./Example/Example.pdf](https://github.com/yunusey/latextemplate/blob/artifacts/Example/Example.pdf).
+
+My workflow is as follows:
+- IDE or PDE (for my case): [Neovim](https://neovim.io/)
+- PDF Viewer: [Zathura](https://github.com/pwmt/zathura)
+- LSP: [TexLab](https://github.com/latex-lsp/texlab)
+- General Purpose LaTeX Plugin: [VimTex](https://github.com/lervag/vimtex)
+- Snippets: [LuaSnip](https://github.com/L3MON4D3/LuaSnip)
+
+Unfortunately, my dotfiles are private, and I am not planning to make them public anytime soon (it has *some* issues :D), but there are people like [ejmastnak](https://github.com/ejmastnak) and [seniormars](https://github.com/seniormars/dotfiles) who share their setups. They have very detailed tutorials. Especially, this [A guide to supercharged mathematical typesetting](https://ejmastnak.com/tutorials/vim-latex/intro/) article is beyond awesome.
 
 ## Building Files Locally 🔄
 Just run `nix build`, and you are going to see the generated PDFs in the `./result/out` folder (this folder is gitignored).
 
 ## Development Environment 🛠️
 You can run `nix develop` to start a devshell with your packages and dependencies declared in your flake file. If you are using [direnv](https://github.com/direnv/direnv), you can also run `direnv allow` to automatically start a devshell everytime you `cd` into your project folder.
+
+## Quick Note on Formatting  ✍️
+There is a file named [indentconfig.yaml](./indentconfig.yaml) in the root folder. You can directly use this file to format your $\LaTeX$ files like this:
+
+```bash
+latexindent --local ./indentconfig.yaml
+```
+
+or if you are using [TexLab](https://github.com/latex-lsp/texlab), you can configure the LSP server to use this file as well. This is what I have in my LSP config:
+
+```lua
+require('lspconfig').texlab.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { "tex", "plaintex", "bib" },
+    cmd = { "texlab", "-vvvv" },
+    settings = {
+        texlab = {
+            latexindent = {
+                ['local'] = vim.fn.getcwd() .. '/indentconfig.yaml',
+            }
+        }
+    }
+}
+```
+You can customize your `indentconfig.yaml` that fits your needs the best. Check out their [documentation](https://latexindentpl.readthedocs.io/en/latest/). It is very detailed.
 
 ## Features 🔥
 - [x] Dependency management using Nix
@@ -96,6 +131,7 @@ You can run `nix develop` to start a devshell with your packages and dependencie
 - [Nixpkgs](https://github.com/NixOS/nixpkgs)
 - [Cachix](https://cachix.org)
 - [ejmastnak](https://github.com/ejmastnak)
+- [latexindent.pl](https://github.com/cmhughes/latexindent.pl)
 
 ## Reading List 📚
 - [Exploring Nix Flakes: Build LaTeX Documents Reproducibly](https://flyx.org/nix-flakes-latex/)
