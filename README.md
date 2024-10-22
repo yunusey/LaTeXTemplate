@@ -3,12 +3,12 @@
     <img src="./assets/latex-template-logo.png" width="200" height="200" />
 </div>
 
-*This is a nice little $\LaTeX$ template that uses GitHub actions for automated builds and Nix for managing dependencies.*
+*This is a nice little LaTeX template that uses GitHub actions for automated builds and Nix for managing dependencies.*
 
 ## Showcase 📸
 You can see the compiled versions of the PDFs in the [artifacts](https://github.com/yunusey/latextemplate/blob/artifacts) branch:
 
-- [Template (tex)](./Template/template.tex) & [Template (pdf)](https://github.com/yunusey/latextemplate/blob/artifacts/Template/Template.pdf)
+- [Template (tex)](./Template/template.tex) & [Template (pdf)](https://github.com/yunusey/latextemplate/blob/artifacts/Template/template.pdf)
 - [Example (tex)](./Example/Example.tex) & [Example (pdf)](https://github.com/yunusey/latextemplate/blob/artifacts/Example/Example.pdf)
 
 ## Usage 📝
