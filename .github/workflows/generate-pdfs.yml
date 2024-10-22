@@ -1,0 +1,42 @@
+name: Build LaTeX document
+on:
+  push:
+    branches:
+      - main
+permissions:
+  contents: write
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v18
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+      - name: Print env
+        run: env
+      - name: Build LaTeX documents
+        run: nix build -L
+      - name: Upload PDF files
+        uses: actions/upload-artifact@v4
+        with:
+          name: PDFs
+          path: ./result/out
+
+  deploy_artifacts:
+    runs-on: ubuntu-latest
+    needs: build_latex
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: PDFs
+          path: ./result/out
+      - name: Deploy artifacts to `artifacts` branch
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: artifacts
+          FOLDER: ./result/out
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

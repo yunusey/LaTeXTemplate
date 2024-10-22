@@ -1,0 +1,53 @@
+\usepackage{etoolbox}
+
+\newbool{shouldNewPage}\setbool{shouldNewPage}{true}
+
+\newcounter{Problems}
+
+\newcommand{\newproblem}[3][\unskip]{
+	\stepcounter{Problems}
+
+	\setlength{\parindent}{0pt}
+	\setlength{\parskip}{1em}
+
+	\section*{Problem \theProblems}
+	\textit{#1}
+
+	\begin{question}{}
+		#2
+	\end{question}
+	\begin{solution}{}
+		\setlength{\parindent}{0pt}
+		\setlength{\parskip}{1em}
+
+		#3
+	\end{solution}
+
+	\ifbool{shouldNewPage}{
+		\newpage
+	}
+}
+
+\newcounter{Theorems}
+\newenvironment{theorem}[2][]{
+	\stepcounter{Theorems}
+	\begin{theorembox}[#1]{#2}{\theTheorems}
+		}{
+	\end{theorembox}
+}
+
+\newcounter{Definitions}
+\newenvironment{definition}[2][]{
+	\stepcounter{Definitions}
+	\begin{definitionbox}[#1]{#2}{\theDefinitions}
+		}{
+	\end{definitionbox}
+}
+
+\newcounter{Remarks}
+\newenvironment{remark}[2][]{
+	\stepcounter{Remarks}
+	\begin{remarkbox}[#1]{#2}{\theRemarks}
+		}{
+	\end{remarkbox}
+}

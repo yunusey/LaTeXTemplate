@@ -1,0 +1,53 @@
+\usepackage[mocha]{catppuccinpalette}
+\usepackage[most]{tcolorbox}
+
+\lstdefinestyle{codelistingstyle}{
+	breaklines=true,
+	showstringspaces=false,
+	breakatwhitespace=true,
+	stringstyle = {\color{CtpGreen}},
+	commentstyle={\color{CtpOverlay1}},
+	basicstyle = {\small\color{CtpText}\ttfamily},
+	keywordstyle = {\color{CtpMauve}},
+	keywordstyle = [2]{\color{CtpBlue}},
+	keywordstyle = [3]{\color{CtpYellow}},
+	keywordstyle = [4]{\color{CtpLavender}},
+	keywordstyle = [5]{\color{CtpPeach}},
+	keywordstyle = [6]{\color{CtpTeal}},
+	otherkeywords = {<, >, ||, =, ?},
+	morekeywords = [2]{new, create, present, email, description, creator, protect_from_forgery, before_action},
+	morekeywords = [3]{PageController, ApplicationController, Page},
+	morekeywords = [4]{@page},
+	morekeywords = [5]{exception, do_some_for_pages, @page, @admin},
+	morekeywords = [6]{<, >, ||, =, ?},
+	gobble=4
+}
+
+\newtcblisting{codelisting}[1]{%
+	enhanced,
+	listing engine=listings,
+	arc=3mm,
+	boxrule=0.5mm,
+	colback={CtpBase},
+	listing only,
+	listing options={
+			language={#1},
+			style={codelistingstyle}
+		},
+	overlay={
+			% Positioning the language label in the top right corner
+			\node[
+				anchor=north east,
+				font=\small\ttfamily\bfseries,
+				text=white,
+				draw=CtpOverlay1,
+				fill=CtpMantle,
+				inner sep=2pt,
+				rounded corners=3pt,
+				line width=0.3mm,
+				xshift=-1.5mm,
+				yshift=-1.0mm
+			]
+			at (frame.north east) {#1};
+		}
+}
