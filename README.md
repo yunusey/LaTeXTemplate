@@ -94,10 +94,10 @@ You can run `nix develop` to start a devshell with your packages and dependencie
 There is a file named [indentconfig.yaml](./indentconfig.yaml) in the root folder. You can directly use this file to format your $\LaTeX$ files like this:
 
 ```bash
-latexindent --local ./indentconfig.yaml
+latexindent --local ./indentconfig.yaml -wd ./Template/template.tex -c /tmp
 ```
 
-or if you are using [TexLab](https://github.com/latex-lsp/texlab), you can configure the LSP server to use this file as well. This is what I have in my LSP config:
+Or if you are using [TexLab](https://github.com/latex-lsp/texlab), you can configure the LSP server to use this file as well. This is what I have in my LSP config, as an example:
 
 ```lua
 require('lspconfig').texlab.setup {
@@ -131,6 +131,7 @@ You can customize your `indentconfig.yaml` that fits your needs the best. Check 
 - [Nixpkgs](https://github.com/NixOS/nixpkgs)
 - [Cachix](https://cachix.org)
 - [ejmastnak](https://github.com/ejmastnak)
+- [seniormars](https://github.com/seniormars)
 - [latexindent.pl](https://github.com/cmhughes/latexindent.pl)
 
 ## Reading List 📚
