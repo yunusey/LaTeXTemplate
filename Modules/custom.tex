@@ -36,6 +36,12 @@
 	\end{theorembox}
 }
 
+\newenvironment{proof}[2][]{
+	\begin{proofbox*}[#1]{#2}{}
+		}{
+	\end{proofbox*}
+}
+
 \newcounter{Definitions}
 \newenvironment{definition}[2][]{
 	\stepcounter{Definitions}
@@ -50,4 +56,12 @@
 	\begin{remarkbox}[#1]{#2}{\theRemarks}
 		}{
 	\end{remarkbox}
+}
+
+\newcounter{Claims}
+\newenvironment{claim}[2][]{
+	\stepcounter{Claims}
+	\begin{claimbox}[#1]{#2}{\theClaims}
+		}{
+	\end{claimbox}
 }

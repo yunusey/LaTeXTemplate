@@ -1,0 +1,18 @@
+\usepackage{luacode}
+
+\begin{luacode*}
+	function get_dirname()
+		local dirname = os.env.PWD:match('([^/]+)$')
+		return dirname
+	end
+
+	function get_default_name(name)
+		local dirname = get_dirname()
+		return name
+	end
+
+	function get_env(var)
+		local env = os.env[var]
+		return env
+	end
+\end{luacode*}

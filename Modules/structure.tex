@@ -1,108 +1,124 @@
-\usepackage{amsmath,amsfonts,stmaryrd,amssymb}
-\usepackage{enumitem}
-\usepackage[ruled]{algorithm2e}
-\usepackage[framemethod=tikz]{mdframed}
 \usepackage[most]{tcolorbox}
 \usepackage{listings}
-\usepackage{hyperref}
-\usepackage{xcolor}
-\usepackage[base]{babel}
-\usepackage{lipsum}
-\usepackage{graphicx}
-\usepackage{systeme}
-\usepackage{siunitx}
-\usepackage{fixdif}
-\usepackage{geometry}
-\usepackage[T1]{fontenc}
-\usepackage{XCharter}
-\usepackage[mocha]{catppuccinpalette}
-\usepackage{multicol}
 
 \usetikzlibrary{arrows,calc,decorations.pathmorphing}
 \tcbuselibrary{theorems,skins}
 
-\sisetup{
-	input-ignore={.},
-	group-separator = {.},
-	input-decimal-markers={,},
-	output-decimal-marker = {,},
-	group-minimum-digits=4
-}
-\lstset{
-	basicstyle=\ttfamily,
-}
-\hypersetup{
-	colorlinks=true,
-	pdfborder={0 0 0},
-	filecolor=magenta,
-	linkcolor=blue,
-	urlcolor=CtpBlue!20!blue,
-}
-\geometry{
-	paper=a4paper,
-	top=2.5cm,
-	bottom=3cm,
-	left=2.5cm,
-	right=2.5cm,
-	headheight=14pt,
-	footskip=1.5cm,
-	headsep=1.2cm,
-}
-
 \newtcolorbox[auto counter]{boxcontainer}[2][]{
 	enhanced,
+	frame hidden,
 	attach boxed title to top center={yshift=-0.5\baselineskip},
 	title=#2,
 	fonttitle={\vollkorn\it\bfseries},
-	coltitle=black,
-	colframe=CtpBase,
-	colback=white,
-	boxed title style={colframe=CtpBase,colback=white},
+	coltitle=TextColor,
+	coltext=TextColor,
+	borderline={1pt}{0pt}{TextColor},
+	opacityback=0,
+	boxed title style={
+			frame hidden,
+			borderline={1pt}{0pt}{TextColor},
+			colback=PageColor,
+		},
 	#1
 }
 
-% Please see ./custom.tex for \begin{theorem}{[title]}...\end{theorem} usage.
 \newtcbtheorem[number within=section]{theorembox}{Theorem}{
 	enhanced,
-	fonttitle={\vollkorn\it\bfseries},
-	colframe=green!35!black,
-	colback=green!5,
+	detach title,
+	sharp corners,
+	frame hidden,
+	boxrule=0pt,
+	before upper=\tcbtitle\setlength{\parskip}{5pt}\par,
+	fonttitle={\sffamily\bfseries},
+	coltitle=ThmTitleColor,
+	colback=ThmColor,
+	coltext=TextColor,
+	borderline west={3pt}{0pt}{ThmTitleColor},
 	parbox=false,
 }
 {th}
 
+\newtcbtheorem[number within=section]{proofbox}{Proof}{
+	enhanced,
+	detach title,
+	frame hidden,
+	attach title to upper=\quad,
+	fonttitle={\sffamily\bfseries},
+	coltitle=ThmTitleColor,
+	coltext=TextColor,
+	borderline={1pt}{0pt}{ThmTitleColor},
+	opacityback=0,
+	parbox=false,
+}
+{pf}
+
 \newtcbtheorem[number within=section]{definitionbox}{Definition}{
 	enhanced,
-	fonttitle={\vollkorn\it\bfseries},
-	colframe=blue!35!black,
-	colback=blue!5,
+	detach title,
+	sharp corners,
+	frame hidden,
+	boxrule=0pt,
+	before upper=\tcbtitle\setlength{\parskip}{5pt}\par,
+	fonttitle={\sffamily\bfseries},
+	coltitle=DefTitleColor,
+	colback=DefColor,
+	coltext=TextColor,
+	borderline west={3pt}{0pt}{DefTitleColor},
 	parbox=false,
 }
 {def}
 
 \newtcbtheorem[number within=section]{remarkbox}{Remark}{
 	enhanced,
-	fonttitle={\vollkorn\it\bfseries},
-	colframe=CtpLavender!60!black,
-	colback=CtpLavender!5,
+	detach title,
+	sharp corners,
+	frame hidden,
+	boxrule=0pt,
+	before upper=\tcbtitle\setlength{\parskip}{5pt}\par,
+	fonttitle={\sffamily\bfseries},
+	description font={\bfseries},
+	coltitle=RemTitleColor,
+	colback=RemColor,
+	coltext=TextColor,
+	borderline west={3pt}{0pt}{RemTitleColor},
 	parbox=false,
 }
 {rem}
 
+\newtcbtheorem[number within=section]{claimbox}{Claim}{
+	enhanced,
+	detach title,
+	sharp corners,
+	frame hidden,
+	boxrule=0pt,
+	before upper=\tcbtitle\setlength{\parskip}{5pt}\par,
+	fonttitle={\sffamily\bfseries},
+	description font={\bfseries},
+	coltitle=ClaimTitleColor,
+	colback=ClaimColor,
+	coltext=TextColor,
+	borderline west={3pt}{0pt}{ClaimTitleColor},
+	parbox=false,
+}
+{claim}
+
 \newtcolorbox[auto counter]{question}[2][]{
 	enhanced,
-	attach boxed title to top left={yshift=-0.5\baselineskip,xshift=1em},
+	frame hidden,
+	attach boxed title to top left={yshift=-0.5\baselineskip,xshift=+1em},
 	title={Question #2},
-	coltitle=black,
-	colframe=black,
-	colback=white,
+	coltitle=TextColor,
+	coltext=TextColor,
+	borderline={1pt}{0pt}{TextColor},
+	opacityback=0,
 	boxrule=0.5pt,
 	arc=3mm,
+	breakable,
 	parbox=false,
 	boxed title style={
-			colframe=black,
-			colback=white,
-			boxrule=0.5pt,
+			colframe=TextColor,
+			colback=PageColor,
+			borderline={1pt}{0pt}{TextColor},
 			arc=2mm,
 		},
 	#1
@@ -110,19 +126,21 @@
 
 \newtcolorbox[auto counter]{solution}[2][]{
 	enhanced,
+	frame hidden,
 	attach boxed title to top right={yshift=-0.5\baselineskip,xshift=-1em},
 	title={Solution #2},
-	coltitle=black,
-	colframe=black,
-	colback=white,
+	coltitle=TextColor,
+	coltext=TextColor,
+	borderline={1pt}{0pt}{TextColor},
+	opacityback=0,
 	boxrule=0.5pt,
 	arc=3mm,
 	breakable,
 	parbox=false,
 	boxed title style={
-			colframe=black,
-			colback=white,
-			boxrule=0.5pt,
+			colframe=TextColor,
+			colback=PageColor,
+			borderline={1pt}{0pt}{TextColor},
 			arc=2mm,
 		},
 	#1
@@ -134,22 +152,19 @@
 	frame hidden,
 	sharp corners,
 	detach title,
-	colframe=black,
-	colback=white,
+	opacityback=0,
 	title={\textbf{#2}},
-	coltitle=black,
+	coltitle=WarnColor,
+	coltext=TextColor,
 	before upper={%
 			\tcbtitle\par
 		},
 	underlay={%
-			\coordinate (dotA) at ($(interior.north west) + (5pt,-10pt)$);
-			\coordinate (dotB) at ($(interior.east) + (1pt,0)$);
-			\coordinate (dotC) at ($(interior.north west) + (-5pt,-10pt)$);
-			\coordinate (rect) at ($(interior.north west) + (0pt,-10pt)$);
-			\begin{scope}[black]
-				\fill[rotate around={45:(dotA)}] (dotA) rectangle (dotC);
-				\node at (rect){\color{white}\scriptsize\bf !};
-				\draw[line width=1.5pt,black]
+			\coordinate (center) at ($(interior.north west) + (0pt,-12pt)$);
+			\begin{scope}
+				\draw[color=WarnColor,very thick] (center) circle (5pt);
+				\node at (center){\color{WarnColor}\scriptsize\bf ?};
+				\draw[line width=1.5pt,color=WarnColor]
 				([shift={(0pt,-20pt)}]interior.north west)
 				--([shift={(0pt,5pt)}]interior.south west);
 			\end{scope}
@@ -163,22 +178,19 @@
 	frame hidden,
 	sharp corners,
 	detach title,
-	colframe=black,
-	colback=white,
+	opacityback=0,
 	title={\textbf{#2}},
-	coltitle=black,
+	coltitle=InfoColor,
+	coltext=TextColor,
 	before upper={%
 			\tcbtitle\par
 		},
 	underlay={%
-			\coordinate (dotA) at ($(interior.north west) + (5pt,-10pt)$);
-			\coordinate (dotB) at ($(interior.east) + (1pt,0)$);
-			\coordinate (dotC) at ($(interior.north west) + (-5pt,-10pt)$);
-			\coordinate (rect) at ($(interior.north west) + (0pt,-10pt)$);
-			\begin{scope}[black]
-				\fill[rotate around={45:(dotA)}] (dotA) rectangle (dotC);
-				\node at (rect){\color{white}\scriptsize\bf i};
-				\draw[line width=1.5pt,black]
+			\coordinate (center) at ($(interior.north west) + (0pt,-12pt)$);
+			\begin{scope}
+				\draw[color=InfoColor,very thick] (center) circle (5pt);
+				\node at (center){\color{InfoColor}\scriptsize\bf i};
+				\draw[line width=1.5pt,color=InfoColor]
 				([shift={(0pt,-20pt)}]interior.north west)
 				--([shift={(0pt,5pt)}]interior.south west);
 			\end{scope}

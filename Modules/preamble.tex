@@ -1,13 +1,76 @@
+\usepackage{amsmath,amsfonts,stmaryrd,amssymb}
+\usepackage{enumitem}
+\usepackage[ruled]{algorithm2e}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage[base]{babel}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{systeme}
+\usepackage{siunitx}
+\usepackage{fixdif}
+\usepackage{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{XCharter}
+\usepackage[mocha]{catppuccinpalette}
+\usepackage{multicol}
+
 \input{../Modules/structure.tex}
 \input{../Modules/custom.tex}
 \input{../Modules/fonts.tex}
 \input{../Modules/code.tex}
 \input{../Modules/macros.tex}
+\input{../Modules/lua.tex}
 
-% CHANGE THESE LINE BEFORE USING!!!
-\author{Yunus (@yunusey) \\ \texttt{\href{}{\textcolor{black}{@yunusey}}}}
-\date{\href{github.com/yunusey}{\textcolor{black}{My GitHub}} --- \today}
+\ifcsname theme\endcsname
+\else
+	\directlua{
+		local theme = 'LightTheme'
+		if get_env('TBOX_THEME') == 'DarkTheme' then
+			theme = 'DarkTheme'
+		end
+		tex.print('\\newcommand{\\theme}{' .. theme .. '}')
+	}
+\fi
+\input{../Modules/theme.tex}
+
+\sisetup{
+	input-ignore={.},
+	group-separator = {.},
+	input-decimal-markers={,},
+	output-decimal-marker = {,},
+	group-minimum-digits=4
+}
+\lstset{
+	basicstyle=\ttfamily,
+}
+\hypersetup{
+	colorlinks=true,
+	pdfborder={0 0 0},
+	filecolor=HyperlinkColor,
+	linkcolor=HyperlinkColor,
+	urlcolor=HyperlinkColor,
+}
+\geometry{
+	paper=a4paper,
+	top=2.5cm,
+	bottom=3cm,
+	left=2.5cm,
+	right=2.5cm,
+	headheight=14pt,
+	footskip=1.5cm,
+	headsep=1.2cm,
+}
+
+\pagecolor{PageColor}
+\color{TextColor}
 
 \setbool{shouldNewPage}{true}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1em}
+
+
+% Change the following to your information!
+\author{Yunus (@yunusey) \\ \texttt{\href{github.com/yunusey}{\textcolor{TextColor}{@yunusey}}}}
+\date{\today}

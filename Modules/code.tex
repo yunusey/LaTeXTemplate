@@ -23,7 +23,7 @@
 	gobble=4
 }
 
-\newtcblisting{codelisting}[1]{%
+\newtcblisting{codelisting}[2][]{%
 	enhanced,
 	listing engine=listings,
 	arc=3mm,
@@ -31,7 +31,7 @@
 	colback={CtpBase},
 	listing only,
 	listing options={
-			language={#1},
+			language={#2},
 			style={codelistingstyle}
 		},
 	overlay={
@@ -48,6 +48,7 @@
 				xshift=-1.5mm,
 				yshift=-1.0mm
 			]
-			at (frame.north east) {#1};
-		}
+			at (frame.north east) {#2};
+		},
+	#1
 }
