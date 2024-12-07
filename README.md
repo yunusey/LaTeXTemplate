@@ -10,7 +10,7 @@ You can see the compiled versions of the PDFs in the [artifacts](https://github.
 
 - [Template (tex)](./Template/template.tex) & [Template (pdf)](https://github.com/yunusey/latextemplate/blob/artifacts/Template/template.pdf)
 - [Example (tex)](./Example/Example.tex) & [Example (pdf)](https://github.com/yunusey/latextemplate/blob/artifacts/Example/Example.pdf)
-- [Example Dark Version (tex)](./Example/Example%20Dark%20Version.tex) & [Example (pdf)](https://github.com/yunusey/latextemplate/blob/artifacts/Example/Example%20Dark%20Version.pdf)
+- [Example Dark Version (tex)](./Example/Example%20Dark%20Version.tex) & [Example Dark Version (pdf)](https://github.com/yunusey/latextemplate/blob/artifacts/Example/Example%20Dark%20Version.pdf)
 
 ## Usage 📝
 You can fork the repository and quickly begin using it. If you are a student like me and you are writing your assignments in $\LaTeX$, you can create a folder inside the root, named `./MyClass`, copy the template using `cp ./Template/template.tex ./MyClass/MyAssignment.tex`, and begin writing. After you are done, just push your changes and you will see (under Actions in your repository) that the build started. Once it is done building, you can download your artifacts or read it on GitHub by switching to `artifacts`.
@@ -22,7 +22,7 @@ I write my assignments and sometimes take my notes in $\LaTeX$ and feel the need
 I am a NixOS user and really like [Nix package manager](https://github.com/NixOS/nixpkgs). I think it does an awesome job on managing $\LaTeX$ dependencies as well! Also, I want to see which packages I am using in my project so that I can diagnose any possible problems easily.
 
 ### Themes 🎨
-I've recently integrated my LaTeX setup for using custom themes (please see [./Modules/theme.tex](./Modules/theme.tex)). If you have a custom theme that you would like to use, you just need to tweak the colors there. Once you do that, you are going to need to change [./Modules/preamble.tex](./Modules/preamble.tex) where just before the build, LaTeX will check if your environment variable `TBOX_THEME` is defined or whether you've overridden it in your latex document (you can do this just by putting `\newcommand{\theme}{DarkTheme}` or your custom theme - please see [./Example/Example Dark Version.tex](./Example/Example%20Dark%20Version.tex) for an example usage). If you have the variable defined, it will use that colorscheme, if you don't, then it will use the default theme (which is currently `LightTheme`, please see [./Modules/theme.tex](./Modules/theme.tex) one more time).
+I've recently integrated my LaTeX setup for using custom themes (please see [./Modules/theme.tex](./Modules/theme.tex)). If you have a custom theme that you would like to use, you just need to tweak the colors there. Once you do that, you are going to need to change [./Modules/preamble.tex](./Modules/preamble.tex#L26-L36) where just before the build, LaTeX will check if your environment variable `TBOX_THEME` is defined or whether you've overridden it in your latex document (you can do this just by putting `\newcommand{\theme}{DarkTheme}` or your custom theme - please see [./Example/Example Dark Version.tex](./Example/Example%20Dark%20Version.tex) for an example usage). If you have the variable defined, it will use that colorscheme, if you don't, then it will use the default theme (which is currently `LightTheme`, please see [./Modules/theme.tex](./Modules/theme.tex) one more time).
 
 If you want to build `DarkTheme` documents, you can run:
 ```bash
@@ -39,8 +39,8 @@ If you want to build default (which is `LightTheme`), you just need to run
 nix build .
 ```
 
-> [!note] Changing Default Theme
-> You can easily change the default theme by going to your [flake](./flake.nix) and change `tbox_theme = "LightTheme";` to `tbox_theme = "DarkTheme";`
+> [!info] Changing Default Theme
+> You can easily change the default theme by going to your [flake](./flake.nix#L27) and change `tbox_theme = "LightTheme";` to `tbox_theme = "DarkTheme";`
 
 ### Adding new fonts 🔤
 You can add new fonts to use in your $\LaTeX$ project. To do so, open [your flake file](./flake.nix), you are going to see the following line:
@@ -86,7 +86,7 @@ tex = pkgs.texlive.combine {
 ```
 
 ### What should I do if the package is not in TeXLive or I couldn't find it in [NixOS Search](search.nixos.org)? 🤔
-In your root, you are going to find a folder named `./packages` which you can rename to whatever you want (`styles` could be a good name). Then, you are going to want to download and copy the `sty` files into this folder. If you look at the contents of [packages](./packages), you are going to see that there already is a file named [catppuccinpalette.sty](./packages/catppuccinpalette.sty). Even though this package is in TeXLive, it wasn't uploaded to [nixpks](https://github.com/nixos/nixpkgs), and I downloaded the `sty` file from [CTAN](https://www.ctan.org/pkg/catppuccinpalette) and copied it to [packages](./packages) folder. Then, I was able to use it just like any other package:
+In your root, you are going to find a folder named `./packages` which you can rename to whatever you want (`styles` could be a good name). Then, you are going to want to download and copy the `sty` files into this folder. If you look at the contents of [packages](./packages), you are going to see that there already is a file named [catppuccinpalette.sty](./packages/catppuccinpalette.sty). Even though this package is in TeXLive, it wasn't uploaded to [nixpkgs](https://github.com/nixos/nixpkgs), and I downloaded the `sty` file from [CTAN](https://www.ctan.org/pkg/catppuccinpalette) and copied it to [packages](./packages) folder. Then, I was able to use it just like any other package:
 
 ```tex
 \usepackage[mocha]{catppuccinpalette}
