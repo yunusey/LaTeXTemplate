@@ -39,7 +39,7 @@ If you want to build default (which is `LightTheme`), you just need to run
 nix build .
 ```
 
-> [!INFO]
+> [!NOTE]
 > **Changing Default Theme**: You can easily change the default theme by going to your [flake](./flake.nix#L27) and change `tbox_theme = "LightTheme";` to `tbox_theme = "DarkTheme";`
 
 ### Adding new fonts 🔤
