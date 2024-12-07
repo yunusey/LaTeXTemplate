@@ -39,8 +39,8 @@ If you want to build default (which is `LightTheme`), you just need to run
 nix build .
 ```
 
-> [!info] Changing Default Theme
-> You can easily change the default theme by going to your [flake](./flake.nix#L27) and change `tbox_theme = "LightTheme";` to `tbox_theme = "DarkTheme";`
+> [!INFO]
+> **Changing Default Theme**: You can easily change the default theme by going to your [flake](./flake.nix#L27) and change `tbox_theme = "LightTheme";` to `tbox_theme = "DarkTheme";`
 
 ### Adding new fonts 🔤
 You can add new fonts to use in your $\LaTeX$ project. To do so, open [your flake file](./flake.nix), you are going to see the following line:
