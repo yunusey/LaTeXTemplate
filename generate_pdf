@@ -1,20 +1,15 @@
 #!/usr/bin/env python
 
-import subprocess
 import os
+import subprocess
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 SKIP_FOLDERS = [
-    './Modules',
-    './out',
+    "./Modules",
+    "./out",
     # './Template',
 ]
-CONTENTS_TEMPLATE = """\
-# Contents
-*This file acts as a table of contents page for the generated PDFs.*
 
-## Table of Contents
-"""
 
 def get_tex_files():
     tex_files = []
@@ -27,10 +22,12 @@ def get_tex_files():
                 tex_files.append(os.path.join(root, file))
     return tex_files
 
+
 def generate_tex():
     tex_files = get_tex_files()
     for tex_file in tex_files:
-        subprocess.run(["latexmk", "-pdf", "-lualatex", "-cd", tex_file])
+        subprocess.run(["latexmk", "-pdflua", "-cd", tex_file])
+
 
 def collect_pdfs():
     pdfs = []
@@ -43,29 +40,9 @@ def collect_pdfs():
                 pdfs.append(os.path.join(root, file))
     return pdfs
 
-def generate_readme(pdfs: list[str]):
-    lines = [CONTENTS_TEMPLATE]
-    dir_to_pdfs = {}
-
-    for pdf in pdfs:
-        dirname = os.path.basename(os.path.dirname(pdf))
-        basename = os.path.basename(pdf)
-        if dirname not in dir_to_pdfs:
-            dir_to_pdfs[dirname] = []
-        dir_to_pdfs[dirname].append(basename)
-
-    for directory, files in sorted(dir_to_pdfs.items()):
-        lines.append(f"- [{directory}]({directory.replace(' ', '%20')})")
-        for file in sorted(files):
-            relative_path = os.path.relpath(os.path.join(directory, file), ROOT_DIR)
-            lines.append(f"    - [{file}]({relative_path.replace(' ', '%20')})")
-
-    with open(os.path.join(ROOT_DIR, "CONTENTS.md"), "w") as f:
-        f.write("\n".join(lines))
 
 generate_tex()
 pdfs = collect_pdfs()
-generate_readme(pdfs)
 
 for pdf in pdfs:
     print(pdf)

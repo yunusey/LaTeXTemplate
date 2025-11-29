@@ -1,0 +1,68 @@
+#!/usr/bin/env python
+
+import os
+import sys
+
+SKIP_FOLDERS = ["./Modules", "./out", "./.git"]
+CONTENTS_TEMPLATE = """\
+# Contents
+*This file acts as a table of contents page for the generated PDFs.*
+
+## Table of Contents
+"""
+
+
+def collect_pdfs(dir: str = os.path.dirname(__file__)):
+    pdfs = []
+    for root, dirs, files in os.walk(dir):
+        if root in SKIP_FOLDERS:
+            continue
+
+        for file in files:
+            if file.endswith(".pdf"):
+                relative_path = os.path.relpath(os.path.join(root, file), dir)
+                pdfs.append(relative_path)
+    return pdfs
+
+
+def convert_to_dict(pdfs: list[str]):
+    d = {}
+    for pdf in pdfs:
+        dirs = os.path.dirname(pdf).split(os.path.sep)
+        current_dir = d
+        for i in range(len(dirs)):
+            if dirs[i] not in current_dir:
+                current_dir[dirs[i]] = {}
+            current_dir = current_dir[dirs[i]]
+
+        current_dir[os.path.basename(pdf)] = pdf
+
+    return d
+
+
+def recursively_generate_list(pdfs: dict[str, dict], path: str = "") -> list[str]:
+    lines = []
+    for key, value in pdfs.items():
+        current_path = os.path.join(path, key)
+        current_path_md = current_path.replace(" ", "%20")
+        lines.append(f"- [{key}](./{current_path_md})")
+        if isinstance(value, dict):
+            new_lines = recursively_generate_list(value, current_path)
+            new_lines_indented = ["    " + line for line in new_lines]
+            lines.extend(new_lines_indented)
+
+    return lines
+
+
+def generate_readme(pdfs: dict[str, dict], dir: str = os.path.dirname(__file__)):
+    lines = [CONTENTS_TEMPLATE]
+    lines.extend(recursively_generate_list(pdfs))
+
+    with open(os.path.join(dir, "CONTENTS.md"), "w") as f:
+        f.write("\n".join(lines))
+
+
+dir = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(__file__)
+pdfs = collect_pdfs(dir)
+pdfs = convert_to_dict(pdfs)
+generate_readme(pdfs, dir=dir)
