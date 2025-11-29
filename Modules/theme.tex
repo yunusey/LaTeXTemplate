@@ -1,48 +1,125 @@
 \usepackage{pgfopts}
 \usepackage{xcolor}
+\usepackage{pgfplots}
 
 \preparecolorset{HTML}{DarkTheme}{}{%
-	PageColor,1E1E2E;%
-	TextColor,CDD6F4;%
-	ThmColor,473a59;%
-	ThmTitleColor,cba6f7;%
-	DefColor,292D42;%
-	DefTitleColor,87B0F9;%
-	RemColor,342D37;%
-	RemTitleColor,FAB387;%
-	ClaimColor,2C3239;%
-	ClaimTitleColor,A6E3A1;%
-	InfoColor,87B0F9;%
-	WarnColor,FAB387;%
-	HyperlinkColor,B1D1E1%
+    PageColor,1E1E2E;%
+    TextColor,CDD6F4;%
+    ThmColor,473a59;%
+    ThmTitleColor,cba6f7;%
+    CorColor,5E5854;%
+    CorTitleColor,f9e2af;%
+    DefColor,292D42;%
+    DefTitleColor,87B0F9;%
+    RemColor,342D37;%
+    RemTitleColor,FAB387;%
+    ClaimColor,2C3239;%
+    ClaimTitleColor,A6E3A1;%
+    PropColor,493948;%
+    PropTitleColor,eba0ac;%
+    LemmaColor,5E5854;%
+    LemmaTitleColor,f9e2af;%
+    ExampleColor,2C3239;%
+    ExampleTitleColor,A6E3A1;%
+    ProblemColor,1E1E2E;%
+    ProblemTitleColor,CDD6F4;%
+    InfoColor,87B0F9;%
+    WarnColor,FAB387;%
+    HyperlinkColor,B1D1E1%
 }
 
 \preparecolorset{HTML}{LightTheme}{}{%
-	PageColor,FFFFFF;%
-	TextColor,000000;%
-	ThmColor,D1C8DB;%
-	ThmTitleColor,5C3981;%
-	DefColor,B1D1E1;%
-	DefTitleColor,053a56;%
-	RemColor,f9cab4;%
-	RemTitleColor,983B0F;%
-	InfoColor,053a56;%
-	ClaimColor,b1e6ac;%
-	ClaimTitleColor,0b8000;%
-	WarnColor,ff4c00;%
-	HyperlinkColor,17a1e6%
+    PageColor,FFFFFF;%
+    TextColor,000000;%
+    ThmColor,D1C8DB;%
+    ThmTitleColor,5C3981;%
+    CorColor,D1C8DB;%
+    CorTitleColor,5C3981;%
+    DefColor,B1D1E1;%
+    DefTitleColor,053a56;%
+    RemColor,f9cab4;%
+    RemTitleColor,983B0F;%
+    InfoColor,053a56;%
+    ClaimColor,b1e6ac;%
+    ClaimTitleColor,0b8000;%
+    PropColor,ffce9d;%
+    PropTitleColor,ad5600;%
+    LemmaColor,b1e6ac;%
+    LemmaTitleColor,0b8000;%
+    ExampleColor,b1e6ac;%
+    ExampleTitleColor,0b8000;%
+    ProblemColor,FFFFFF;%
+    ProblemTitleColor,000000;%
+    WarnColor,ff4c00;%
+    HyperlinkColor,17a1e6%
+}
+
+\preparecolorset{HTML}{SolarizedLightTheme}{}{%
+    PageColor,fdf6e3;%
+    TextColor,657b83;%
+    ThmColor,CDCAD9;%
+    ThmTitleColor,6c71c4;%
+    CorColor,CDCAD9;%
+    CorTitleColor,6c71c4;%
+    DefColor,C7DBDF;%
+    DefTitleColor,268bd2;%
+    RemColor,F8D5C5;%
+    RemTitleColor,dc322f;%
+    InfoColor,268bd2;%
+    ClaimColor,D5D797;%
+    ClaimTitleColor,859900;%
+    PropColor,D5D797;%
+    PropTitleColor,859900;%
+    LemmaColor,D5D797;%
+    LemmaTitleColor,859900;%
+    ExampleColor,D5D797;%
+    ExampleTitleColor,859900;%
+    ProblemColor,fdf6e3;%
+    ProblemTitleColor,657b83;%
+    WarnColor,dc322f;%
+    HyperlinkColor,17a1e6%
 }
 
 \colorlet{PageColor}{\theme PageColor}
 \colorlet{TextColor}{\theme TextColor}
 \colorlet{ThmColor}{\theme ThmColor}
 \colorlet{ThmTitleColor}{\theme ThmTitleColor}
+\colorlet{CorColor}{\theme CorColor}
+\colorlet{CorTitleColor}{\theme CorTitleColor}
 \colorlet{DefColor}{\theme DefColor}
 \colorlet{DefTitleColor}{\theme DefTitleColor}
 \colorlet{RemColor}{\theme RemColor}
 \colorlet{RemTitleColor}{\theme RemTitleColor}
 \colorlet{ClaimColor}{\theme ClaimColor}
 \colorlet{ClaimTitleColor}{\theme ClaimTitleColor}
+\colorlet{PropColor}{\theme PropColor}
+\colorlet{PropTitleColor}{\theme PropTitleColor}
+\colorlet{LemmaColor}{\theme LemmaColor}
+\colorlet{LemmaTitleColor}{\theme LemmaTitleColor}
+\colorlet{ExampleColor}{\theme ExampleColor}
+\colorlet{ExampleTitleColor}{\theme ExampleTitleColor}
+\colorlet{ProblemColor}{\theme ProblemColor}
+\colorlet{ProblemTitleColor}{\theme ProblemTitleColor}
 \colorlet{InfoColor}{\theme InfoColor}
 \colorlet{WarnColor}{\theme WarnColor}
 \colorlet{HyperlinkColor}{\theme HyperlinkColor}
+
+\pgfplotsset{
+    width=7cm,
+    compat=1.18,
+    colormap={standard-dark-theme}{
+            HTML(0cm)=(cba6f7);
+            HTML(1cm)=(87B0F9);
+        },
+    colormap={standard-light-theme}{
+            HTML(0cm)=(87B0F9);
+            HTML(1cm)=(cba6f7);
+        },
+    every axis legend/.append style = {
+            at={(0,0)},
+            anchor=south west,
+            fill=PageColor,
+            draw=TextColor
+        }
+}
+

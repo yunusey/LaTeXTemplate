@@ -1,7 +1,11 @@
+\RequirePackage{etex} % for extended allocation purposes
 \usepackage{amsmath,amsfonts,stmaryrd,amssymb}
+\usepackage{mathtools}
+\usepackage{titlesec}
 \usepackage{enumitem}
+\usepackage{longtable}
+\usepackage{multirow}
 \usepackage[ruled]{algorithm2e}
-\usepackage[framemethod=tikz]{mdframed}
 \usepackage{hyperref}
 \usepackage{xcolor}
 \usepackage[base]{babel}
@@ -11,56 +15,68 @@
 \usepackage{siunitx}
 \usepackage{fixdif}
 \usepackage{geometry}
+\usepackage{multicol}
+\usepackage{cleveref}
+\usepackage{circuitikz}
+\usepackage{braket}
+\usepackage{verbatim}
+% \usepackage{physics}
+
 \usepackage[T1]{fontenc}
 \usepackage{XCharter}
-\usepackage[mocha]{catppuccinpalette}
-\usepackage{multicol}
+\usepackage[]{AlegreyaSans} % for sans-serif (use [sfdefault] option to set main font to sans-serif)
+\usepackage[]{Alegreya} % for serif
+\usepackage[scale=0.8]{plex-mono} % for monospace
 
-\input{../Modules/structure.tex}
-\input{../Modules/custom.tex}
-\input{../Modules/fonts.tex}
-\input{../Modules/code.tex}
-\input{../Modules/macros.tex}
 \input{../Modules/lua.tex}
-
 \ifcsname theme\endcsname
 \else
-	\directlua{
-		local theme = 'LightTheme'
-		if get_env('TBOX_THEME') == 'DarkTheme' then
-			theme = 'DarkTheme'
-		end
-		tex.print('\\newcommand{\\theme}{' .. theme .. '}')
-	}
+    \directlua{
+        local theme = 'LightTheme'
+        if get_env('TBOX_THEME') == 'DarkTheme' then
+            theme = 'DarkTheme'
+        end
+        tex.print('\\newcommand{\\theme}{' .. theme .. '}')
+    }
 \fi
+\directlua{
+    local theme = [[\theme]]
+    local catppuccin_theme = theme == 'DarkTheme' and 'mocha' or 'latte'
+    tex.print('\\usepackage[' .. catppuccin_theme .. ']{catppuccinpalette}')
+}
+\input{../Modules/fonts.tex}
+\input{../Modules/structure.tex}
+\input{../Modules/custom.tex}
+\input{../Modules/code.tex}
+\input{../Modules/macros.tex}
 \input{../Modules/theme.tex}
 
 \sisetup{
-	input-ignore={.},
-	group-separator = {.},
-	input-decimal-markers={,},
-	output-decimal-marker = {,},
-	group-minimum-digits=4
+    input-ignore={.},
+    group-separator = {.},
+    input-decimal-markers={,},
+    output-decimal-marker = {,},
+    group-minimum-digits=4
 }
 \lstset{
-	basicstyle=\ttfamily,
+    basicstyle=\ttfamily,
 }
 \hypersetup{
-	colorlinks=true,
-	pdfborder={0 0 0},
-	filecolor=HyperlinkColor,
-	linkcolor=HyperlinkColor,
-	urlcolor=HyperlinkColor,
+    colorlinks=true,
+    pdfborder={0 0 0},
+    filecolor=HyperlinkColor,
+    linkcolor=HyperlinkColor,
+    urlcolor=HyperlinkColor,
 }
 \geometry{
-	paper=a4paper,
-	top=2.5cm,
-	bottom=3cm,
-	left=2.5cm,
-	right=2.5cm,
-	headheight=14pt,
-	footskip=1.5cm,
-	headsep=1.2cm,
+    paper=a4paper,
+    top=2.5cm,
+    bottom=3cm,
+    left=2.5cm,
+    right=2.5cm,
+    headheight=14pt,
+    footskip=1.5cm,
+    headsep=1.2cm,
 }
 
 \pagecolor{PageColor}
@@ -70,7 +86,6 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1em}
 
-
-% Change the following to your information!
-\author{Yunus (@yunusey) \\ \texttt{\href{github.com/yunusey}{\textcolor{TextColor}{@yunusey}}}}
+% TODO: Update author info, and date format!
+\author{Yunus \\ \texttt{\href{github.com/yunusey}{\textcolor{TextColor}{@yunusey}}}}
 \date{\today}

@@ -2,66 +2,80 @@
 
 \newbool{shouldNewPage}\setbool{shouldNewPage}{true}
 
-\newcounter{Problems}
+\newcommand{\newprob}[3][]{
+    \begin{prob}{#1}
+        #2
+        \tcblower
+        #3
+    \end{prob}
 
-\newcommand{\newproblem}[3][\unskip]{
-	\stepcounter{Problems}
-
-	\setlength{\parindent}{0pt}
-	\setlength{\parskip}{1em}
-
-	\section*{Problem \theProblems}
-	\textit{#1}
-
-	\begin{question}{}
-		#2
-	\end{question}
-	\begin{solution}{}
-		\setlength{\parindent}{0pt}
-		\setlength{\parskip}{1em}
-
-		#3
-	\end{solution}
-
-	\ifbool{shouldNewPage}{
-		\newpage
-	}
+    \ifbool{shouldNewPage}{
+        \newpage
+    }
 }
 
 \newcounter{Theorems}
 \newenvironment{theorem}[2][]{
-	\stepcounter{Theorems}
-	\begin{theorembox}[#1]{#2}{\theTheorems}
-		}{
-	\end{theorembox}
+    \stepcounter{Theorems}
+    \begin{theorembox}[#1]{#2}{\theTheorems}
+        }{
+    \end{theorembox}
 }
 
 \newenvironment{proof}[2][]{
-	\begin{proofbox*}[#1]{#2}{}
-		}{
-	\end{proofbox*}
+    \begin{proofbox*}[#1]{#2}{}
+        }{
+    \end{proofbox*}
 }
 
 \newcounter{Definitions}
 \newenvironment{definition}[2][]{
-	\stepcounter{Definitions}
-	\begin{definitionbox}[#1]{#2}{\theDefinitions}
-		}{
-	\end{definitionbox}
+    \stepcounter{Definitions}
+    \begin{definitionbox}[#1]{#2}{\theDefinitions}
+        }{
+    \end{definitionbox}
 }
 
 \newcounter{Remarks}
 \newenvironment{remark}[2][]{
-	\stepcounter{Remarks}
-	\begin{remarkbox}[#1]{#2}{\theRemarks}
-		}{
-	\end{remarkbox}
+    \stepcounter{Remarks}
+    \begin{remarkbox}[#1]{#2}{\theRemarks}
+        }{
+    \end{remarkbox}
 }
 
-\newcounter{Claims}
 \newenvironment{claim}[2][]{
-	\stepcounter{Claims}
-	\begin{claimbox}[#1]{#2}{\theClaims}
-		}{
-	\end{claimbox}
+    \begin{claimbox*}[#1]{#2}{}
+        }{
+    \end{claimbox*}
+}
+
+\newcounter{Propositions}
+\newenvironment{prop}[2][]{
+    \stepcounter{Propositions}
+    \begin{propbox}[#1]{#2}{\thePropositions}
+        }{
+    \end{propbox}
+}
+
+\newcounter{Lemmas}
+\newenvironment{lemma}[2][]{
+    \begin{lemmabox}[#1]{#2}{\theLemmas}
+        }{
+    \end{lemmabox}
+}
+
+\newcounter{Corollaries}
+\newenvironment{corollary}[2][]{
+    \begin{corollarybox}[#1]{#2}{\theCorollaries}
+        }{
+    \end{corollarybox}
+}
+
+\newcounter{Example}
+\newenvironment{example}[2][]{
+    \stepcounter{Example}
+    \begin{examplebox}[#1]{#2}{\theExample}
+        }{
+    \end{examplebox}
 }

@@ -1,14 +1,20 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{xparse} % for flexible argument parsing
 
 \DeclareMathOperator{\proj}{proj}
 \DeclareMathOperator{\Span}{Span}
 \DeclareMathOperator{\Nul}{Nul}
 \DeclareMathOperator{\Col}{Col}
 \DeclareMathOperator{\Row}{Row}
+\DeclareMathOperator{\Tr}{Tr}
 \DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\nulty}{nullity}
 \DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\mult}{mult}
+
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\divg}{div} % \div is in use
 
 \DeclareMathOperator{\CRe}{Re}
 \DeclareMathOperator{\CIm}{Im}
@@ -18,7 +24,36 @@
 \DeclareMathOperator{\Z}{\mathbb{Z}}
 \DeclareMathOperator{\Q}{\mathbb{Q}}
 \DeclareMathOperator{\C}{\mathbb{C}}
+\DeclareMathOperator{\F}{\mathbb{F}}
 
-% Add your custom macros here!
+\DeclareMathOperator{\Rel}{Rel}
+
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\SD}{SD}
+\DeclareMathOperator{\Bern}{Bern}         % Bernoulli Random Variable
+\DeclareMathOperator{\Bin}{Bin}           % Binomial Random Variable
+\DeclareMathOperator{\Poisson}{Poisson}   % Poisson Random Variable
+\DeclareMathOperator{\Geom}{Geom}         % Geometric Random Variable
+\DeclareMathOperator{\Uniform}{Uniform}   % Uniform Random Variable
+\DeclareMathOperator{\Normal}{Normal}     % Normal Random Variable
+\DeclareMathOperator{\Exp}{Exp}           % Exponential
 
 \DeclareRobustCommand{\uvec}[1]{\hat{\mathbf{#1}}}
+
+% \newenvironment{amatrix}[1]{%
+%     \left(\begin{array}{@{}*{#1}{c}|c@{}}
+%         }{%
+%     \end{array}\right)
+% }
+
+% #1 = columns before bar (mandatory)
+% #2 = columns after bar (optional, defaults to 1)
+\NewDocumentEnvironment{amatrix}{m o}{%
+\IfNoValueTF{#2}
+{\left(\begin{array}{@{}*{#1}{c}|c@{}}}
+{\left(\begin{array}{@{}*{#1}{c}|*{#2}{c}@{}}}
+        }{%
+    \end{array}\right)
+}

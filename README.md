@@ -3,123 +3,177 @@
     <img src="./assets/latex-template-logo.png" width="200" height="200" />
 </div>
 
-*This is a nice little LaTeX template that uses GitHub actions for automated builds and Nix for managing dependencies.*
+*A clean and convenient LaTeX template powered by GitHub Actions for automated builds and Nix for dependency management.*
 
 ## Showcase 📸
 You can see the compiled versions of the PDFs in the [artifacts](https://github.com/yunusey/latextemplate/blob/artifacts) branch:
 
-- [Template (tex)](./Template/template.tex) & [Template (pdf)](https://github.com/yunusey/latextemplate/blob/artifacts/Template/template.pdf)
-- [Example (tex)](./Example/Example.tex) & [Example (pdf)](https://github.com/yunusey/latextemplate/blob/artifacts/Example/Example.pdf)
-- [Example Dark Version (tex)](./Example/Example%20Dark%20Version.tex) & [Example Dark Version (pdf)](https://github.com/yunusey/latextemplate/blob/artifacts/Example/Example%20Dark%20Version.pdf)
+| [Light Version](https://github.com/yunusey/latextemplate/blob/artifacts/Example/Example%20Light%20Version.pdf) | [Dark Version](https://github.com/yunusey/latextemplate/blob/artifacts/Example/Example%20Dark%20Version.pdf) |
+| :------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------:|
+| ![](./assets/Example%20Light%20Version%20Preview.png)                                                           | ![](./assets/Example%20Dark%20Version%20Preview.png)                                                         |
+
 
 ## Usage 📝
-You can fork the repository and quickly begin using it. If you are a student like me and you are writing your assignments in $\LaTeX$, you can create a folder inside the root, named `./MyClass`, copy the template using `cp ./Template/template.tex ./MyClass/MyAssignment.tex`, and begin writing. After you are done, just push your changes and you will see (under Actions in your repository) that the build started. Once it is done building, you can download your artifacts or read it on GitHub by switching to `artifacts`.
+
+You can simply fork this repository and start writing. If you're a student like me and write your assignments in $\LaTeX$, you can create a folder in the project root (e.g., `./MyClass`), copy the template:
+
+```bash
+cp ./Template/template.tex ./MyClass/MyAssignment.tex
+```
+
+Then start writing! Once you commit and push your changes, GitHub Actions will automatically build your project. When the build finishes, you’ll find the generated PDFs either as downloadable artifacts or directly in the `artifacts` branch.
 
 ## Why Automated Builds? ⚙️
-I write my assignments and sometimes take my notes in $\LaTeX$ and feel the need to take a look at my notes/assignments whenever I feel so. Using this integrated setup, whenever I make changes to something, GitHub actions builds my project and pushes the artifacts to the `artifacts` branch. So, I can always read them, from my phone or any other device that is able to connect to the internet.
+
+I often revisit my assignments or notes from my phone or another device. With this setup, every change triggers a GitHub Actions workflow that compiles my LaTeX files and pushes the results to the `artifacts` branch. This means I always have an up-to-date PDF available---anywhere, anytime.
 
 ## Why Nix? ❄️
-I am a NixOS user and really like [Nix package manager](https://github.com/NixOS/nixpkgs). I think it does an awesome job on managing $\LaTeX$ dependencies as well! Also, I want to see which packages I am using in my project so that I can diagnose any possible problems easily.
 
-### Themes 🎨
-I've recently integrated my LaTeX setup for using custom themes (please see [./Modules/theme.tex](./Modules/theme.tex)). If you have a custom theme that you would like to use, you just need to tweak the colors there. Once you do that, you are going to need to change [./Modules/preamble.tex](./Modules/preamble.tex#L26-L36) where just before the build, LaTeX will check if your environment variable `TBOX_THEME` is defined or whether you've overridden it in your latex document (you can do this just by putting `\newcommand{\theme}{DarkTheme}` or your custom theme - please see [./Example/Example Dark Version.tex](./Example/Example%20Dark%20Version.tex) for an example usage). If you have the variable defined, it will use that colorscheme, if you don't, then it will use the default theme (which is currently `LightTheme`, please see [./Modules/theme.tex](./Modules/theme.tex) one more time).
+As a NixOS user, I rely heavily on the Nix package manager, and it handles LaTeX dependencies beautifully. It also gives me full control over which packages my project uses, making debugging or extending my setup much easier.
 
-If you want to build `DarkTheme` documents, you can run:
+## Themes 🎨
+
+This template supports custom themes! Check out [`./Modules/theme.tex`](./Modules/theme.tex). You can define your own color scheme there.
+
+In [`./Modules/preamble.tex`](./Modules/preamble.tex#L26-L36), LaTeX checks the `TBOX_THEME` environment variable or any theme you manually override in your document via:
+
+```tex
+\newcommand{\theme}{DarkTheme}
+```
+
+(See [`Example Dark Version.tex`](./Example/Example%20Dark%20Version.tex) for a usage example.)
+
+**Build commands:**
+
 ```bash
 nix build .#dark-theme-documents
-```
-
-If you want to build `LightTheme` documents, you can run:
-```bash
 nix build .#light-theme-documents
-```
-
-If you want to build default (which is `LightTheme`), you just need to run
-```bash
-nix build .
+nix build .     # builds default (LightTheme)
 ```
 
 > [!NOTE]
-> **Changing Default Theme**: You can easily change the default theme by going to your [flake](./flake.nix#L27) and change `tbox_theme = "LightTheme";` to `tbox_theme = "DarkTheme";`
+> **Changing the default theme:**
+> Edit your [`flake.nix`](./flake.nix#L59) and update:
+> `tbox_theme = "LightTheme";` to `tbox_theme = "DarkTheme";`
 
-### Adding new fonts 🔤
-You can add new fonts to use in your $\LaTeX$ project. To do so, open [your flake file](./flake.nix), you are going to see the following line:
+## Adding New Fonts 🔤
 
-```nix
-os_font_dir = with pkgs; "${jetbrains-mono}/share/fonts/truetype:${vollkorn}/share/fonts/opentype";
-```
-Now, let's say you want to use `Fira Code` font, then you are going to want to find it on [NixOS Search](search.nixos.org). For instance, for `Fira Code`, I found my font's package to be `fira-code`. Now, I can look at what kind of a font it is (it is truetype and located at `$out/share/fonts/truetype` - you can see it in the [source](https://github.com/NixOS/nixpkgs/blob/nixos-24.05/pkgs/data/fonts/fira-code/default.nix#L24)), so I will change this line to:
+To include additional fonts, open your `flake.nix` and locate:
 
 ```nix
-os_font_dir = with pkgs; "${jetbrains-mono}/share/fonts/truetype:${vollkorn}/share/fonts/opentype:${fira-code}/share/fonts/truetype";
+os_font_dir = with pkgs; "";
 ```
 
-Then, if you are using my template, you should go to [./Modules/fonts.tex](./Modules/fonts.tex), and add the following lines:
+Suppose you want to use **Fira Code**. Find it on [NixOS Search](https://search.nixos.org). Its package is `fira-code`, and its fonts live under `$out/share/fonts/truetype`. Update the line to:
+
+```nix
+os_font_dir = with pkgs; "${fira-code}/share/fonts/truetype";
+```
+
+Then, in [`./Modules/fonts.tex`](./Modules/fonts.tex), declare it via `fontspec`:
+
 ```tex
 \newfontfamily{\firacode}{FiraCode-VF}[
-	Extension=.ttf,
-	Ligatures = TeX,
-	Scale=0.9
+    Extension=.ttf,
+    Ligatures=TeX,
+    Scale=0.9
 ]
 ```
-Now, you can use `firacode` in your $\LaTeX$ project like this:
+
+Now you can use it like:
 
 ```tex
 \begin{myenvironment}
 {
-\firacode
-
-This is my code with Fira Code font
+    \firacode
+    This is my code with Fira Code!
 }
 \end{myenvironment}
 ```
 
-If you have local font files, as long as you add them to your `$OSFONTDIR` environment variable, and declare them using `fontspec` in your project, you will be able to use them.
+Local fonts also work---just ensure they’re included in your `$OSFONTDIR` and loaded with `fontspec`.
 
-### Adding new packages 📦
-Adding new packages, if they are in TeXLive, is pretty easy. You just need to find its name: search on [NixOS Search](search.nixos.org) and add it to your flake file like this:
+
+## Adding New Packages 📦
+
+If a package exists in TeXLive, simply find it on [NixOS Search](https://search.nixos.org) and add it to your flake:
 
 ```nix
 tex = pkgs.texlive.combine {
-  inherit (pkgs.texlive) scheme-medium latexmk {some other packages...} my-awesome-package;
+  inherit (pkgs.texlive) scheme-medium latexmk ... my-awesome-package;
 };
 ```
 
-### What should I do if the package is not in TeXLive or I couldn't find it in [NixOS Search](search.nixos.org)? 🤔
-In your root, you are going to find a folder named `./packages` which you can rename to whatever you want (`styles` could be a good name). Then, you are going to want to download and copy the `sty` files into this folder. If you look at the contents of [packages](./packages), you are going to see that there already is a file named [catppuccinpalette.sty](./packages/catppuccinpalette.sty). Even though this package is in TeXLive, it wasn't uploaded to [nixpkgs](https://github.com/nixos/nixpkgs), and I downloaded the `sty` file from [CTAN](https://www.ctan.org/pkg/catppuccinpalette) and copied it to [packages](./packages) folder. Then, I was able to use it just like any other package:
 
-```tex
-\usepackage[mocha]{catppuccinpalette}
+## What If a Package Isn’t in TeXLive? 🤔
+
+Use the `./packages` folder (feel free to rename it, e.g., `./styles`) and drop any `.sty` files there.
+
+If you have additional directories elsewhere, you can manually extend `$TEXINPUTS` (see [`flake.nix`](./flake.nix#L87)). By default:
+
+```
+TEXINPUTS=./packages
 ```
 
-If you have many different folders placed in different locations, maybe some of them are not even in your project folder, you can manually change the environment variable `$TEXINPUTS` to include all of them.
+So anything in that folder will be picked up automatically.
 
-## How am I using it? 🚀
-You can see one of my notes in [./Example/Example.tex](./Example/Example.tex) and the produced PDF in [./Example/Example.pdf](https://github.com/yunusey/latextemplate/blob/artifacts/Example/Example.pdf).
 
-My workflow is as follows:
-- IDE or PDE (for my case): [Neovim](https://neovim.io/)
-- PDF Viewer: [Zathura](https://github.com/pwmt/zathura)
-- LSP: [TexLab](https://github.com/latex-lsp/texlab)
-- General Purpose LaTeX Plugin: [VimTex](https://github.com/lervag/vimtex)
-- Snippets: [LuaSnip](https://github.com/L3MON4D3/LuaSnip)
+## How I Use It 🚀
 
-Unfortunately, my dotfiles are private, and I am not planning to make them public anytime soon (it has *some* issues :D), but there are people like [ejmastnak](https://github.com/ejmastnak) and [seniormars](https://github.com/seniormars/dotfiles) who share their setups. They have very detailed tutorials. Especially, this [A guide to supercharged mathematical typesetting](https://ejmastnak.com/tutorials/vim-latex/intro/) article is beyond awesome.
+Check out an example note in [`./Example/Example.tex`](./Example/Example.tex) and its compiled version [here](https://github.com/yunusey/latextemplate/blob/artifacts/Example/Example.pdf).
+
+My LaTeX workflow:
+
+* IDE/PDE: [Neovim](https://neovim.io/)
+* PDF Viewer: [Zathura](https://github.com/pwmt/zathura)
+* LSP: [TexLab](https://github.com/latex-lsp/texlab)
+* Main LaTeX Plugin: [VimTex](https://github.com/lervag/vimtex)
+* Snippets: [LuaSnip](https://github.com/L3MON4D3/LuaSnip)
+
+My dotfiles are private (they... need work :D), but these folks have excellent setups and guides:
+
+* [ejmastnak](https://github.com/ejmastnak)
+* [seniormars](https://github.com/seniormars/dotfiles)
+
+In particular, [A guide to supercharged mathematical typesetting](https://ejmastnak.com/tutorials/vim-latex/intro/) is outstanding.
 
 ## Building Files Locally 🔄
-Just run `nix build`, and you are going to see the generated PDFs in the `./result/out` folder (this folder is gitignored).
+
+Just run:
+
+```bash
+nix build
+```
+
+Your PDFs will appear in `./result/out` (which is `.gitignore`d).
+
 
 ## Development Environment 🛠️
-You can run `nix develop` to start a devshell with your packages and dependencies declared in your flake file. If you are using [direnv](https://github.com/direnv/direnv), you can also run `direnv allow` to automatically start a devshell everytime you `cd` into your project folder.
 
-## Quick Note on Formatting  ✍️
-There is a file named [indentconfig.yaml](./indentconfig.yaml) in the root folder. You can directly use this file to format your $\LaTeX$ files like this:
+Start a development shell with:
+
+```bash
+nix develop
+```
+
+If you use [direnv](https://github.com/direnv/direnv):
+
+```bash
+direnv allow
+```
+
+You’ll then automatically enter the devshell whenever you `cd` into this project.
+
+
+## Quick Note on Formatting ✍️
+
+The root folder includes an `indentconfig.yaml` for `latexindent`. Use it like:
 
 ```bash
 latexindent --local ./indentconfig.yaml -wd ./Template/template.tex -c /tmp
 ```
 
-Or if you are using [TexLab](https://github.com/latex-lsp/texlab), you can configure the LSP server to use this file as well. This is what I have in my LSP config, as an example:
+If you use TexLab, you can configure it to use this file:
 
 ```lua
 require('lspconfig').texlab.setup {
@@ -136,6 +190,7 @@ require('lspconfig').texlab.setup {
     }
 }
 ```
+
 You can customize your `indentconfig.yaml` that fits your needs the best. Check out their [documentation](https://latexindentpl.readthedocs.io/en/latest/). It is very detailed.
 
 ## Features 🔥

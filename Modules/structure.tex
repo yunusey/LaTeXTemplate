@@ -5,195 +5,229 @@
 \tcbuselibrary{theorems,skins}
 
 \newtcolorbox[auto counter]{boxcontainer}[2][]{
-	enhanced,
-	frame hidden,
-	attach boxed title to top center={yshift=-0.5\baselineskip},
-	title=#2,
-	fonttitle={\vollkorn\it\bfseries},
-	coltitle=TextColor,
-	coltext=TextColor,
-	borderline={1pt}{0pt}{TextColor},
-	opacityback=0,
-	boxed title style={
-			frame hidden,
-			borderline={1pt}{0pt}{TextColor},
-			colback=PageColor,
-		},
-	#1
+    enhanced,
+    frame hidden,
+    attach boxed title to top center={yshift=-0.5\baselineskip},
+    title=#2,
+    fonttitle={\sffamily\bfseries\itshape},
+    coltitle=TextColor,
+    coltext=TextColor,
+    borderline={1pt}{0pt}{TextColor},
+    opacityback=0,
+    boxed title style={
+            frame hidden,
+            borderline={1pt}{0pt}{TextColor},
+            colback=PageColor,
+        },
+    #1
 }
 
 \newtcbtheorem[number within=section]{theorembox}{Theorem}{
-	enhanced,
-	detach title,
-	sharp corners,
-	frame hidden,
-	boxrule=0pt,
-	before upper=\tcbtitle\setlength{\parskip}{5pt}\par,
-	fonttitle={\sffamily\bfseries},
-	coltitle=ThmTitleColor,
-	colback=ThmColor,
-	coltext=TextColor,
-	borderline west={3pt}{0pt}{ThmTitleColor},
-	parbox=false,
+    enhanced,
+    detach title,
+    sharp corners,
+    frame hidden,
+    boxrule=0pt,
+    before upper=\tcbtitle\setlength{\parskip}{5pt}\par,
+    fonttitle={\sffamily\bfseries},
+    coltitle=ThmTitleColor,
+    colback=ThmColor,
+    coltext=TextColor,
+    borderline west={3pt}{0pt}{ThmTitleColor},
+    parbox=false,
 }
 {th}
 
 \newtcbtheorem[number within=section]{proofbox}{Proof}{
-	enhanced,
-	detach title,
-	frame hidden,
-	attach title to upper=\quad,
-	fonttitle={\sffamily\bfseries},
-	coltitle=ThmTitleColor,
-	coltext=TextColor,
-	borderline={1pt}{0pt}{ThmTitleColor},
-	opacityback=0,
-	parbox=false,
+    enhanced,
+    detach title,
+    frame hidden,
+    breakable,
+    attach title to upper=\quad,
+    fonttitle={\sffamily\bfseries},
+    coltitle=ThmTitleColor,
+    coltext=TextColor,
+    borderline={1pt}{0pt}{ThmTitleColor},
+    opacityback=0,
+    parbox=false,
 }
 {pf}
 
 \newtcbtheorem[number within=section]{definitionbox}{Definition}{
-	enhanced,
-	detach title,
-	sharp corners,
-	frame hidden,
-	boxrule=0pt,
-	before upper=\tcbtitle\setlength{\parskip}{5pt}\par,
-	fonttitle={\sffamily\bfseries},
-	coltitle=DefTitleColor,
-	colback=DefColor,
-	coltext=TextColor,
-	borderline west={3pt}{0pt}{DefTitleColor},
-	parbox=false,
+    enhanced,
+    detach title,
+    sharp corners,
+    frame hidden,
+    boxrule=0pt,
+    before upper=\tcbtitle\setlength{\parskip}{5pt}\par,
+    fonttitle={\sffamily\bfseries},
+    coltitle=DefTitleColor,
+    colback=DefColor,
+    coltext=TextColor,
+    borderline west={3pt}{0pt}{DefTitleColor},
+    parbox=false,
 }
 {def}
 
 \newtcbtheorem[number within=section]{remarkbox}{Remark}{
-	enhanced,
-	detach title,
-	sharp corners,
-	frame hidden,
-	boxrule=0pt,
-	before upper=\tcbtitle\setlength{\parskip}{5pt}\par,
-	fonttitle={\sffamily\bfseries},
-	description font={\bfseries},
-	coltitle=RemTitleColor,
-	colback=RemColor,
-	coltext=TextColor,
-	borderline west={3pt}{0pt}{RemTitleColor},
-	parbox=false,
+    enhanced,
+    detach title,
+    sharp corners,
+    frame hidden,
+    boxrule=0pt,
+    before upper=\tcbtitle\setlength{\parskip}{5pt}\par,
+    fonttitle={\sffamily\bfseries},
+    description font={\bfseries},
+    coltitle=RemTitleColor,
+    colback=RemColor,
+    coltext=TextColor,
+    borderline west={3pt}{0pt}{RemTitleColor},
+    parbox=false,
 }
 {rem}
 
 \newtcbtheorem[number within=section]{claimbox}{Claim}{
-	enhanced,
-	detach title,
-	sharp corners,
-	frame hidden,
-	boxrule=0pt,
-	before upper=\tcbtitle\setlength{\parskip}{5pt}\par,
-	fonttitle={\sffamily\bfseries},
-	description font={\bfseries},
-	coltitle=ClaimTitleColor,
-	colback=ClaimColor,
-	coltext=TextColor,
-	borderline west={3pt}{0pt}{ClaimTitleColor},
-	parbox=false,
+    enhanced,
+    detach title,
+    frame hidden,
+    attach title to upper=\quad,
+    fonttitle={\sffamily\bfseries},
+    coltitle=ClaimTitleColor,
+    coltext=TextColor,
+    borderline={1pt}{0pt}{ClaimTitleColor},
+    opacityback=0,
+    parbox=false,
 }
 {claim}
 
-\newtcolorbox[auto counter]{question}[2][]{
-	enhanced,
-	frame hidden,
-	attach boxed title to top left={yshift=-0.5\baselineskip,xshift=+1em},
-	title={Question #2},
-	coltitle=TextColor,
-	coltext=TextColor,
-	borderline={1pt}{0pt}{TextColor},
-	opacityback=0,
-	boxrule=0.5pt,
-	arc=3mm,
-	breakable,
-	parbox=false,
-	boxed title style={
-			colframe=TextColor,
-			colback=PageColor,
-			borderline={1pt}{0pt}{TextColor},
-			arc=2mm,
-		},
-	#1
+\newtcbtheorem[number within=section]{corollarybox}{Corollary}{
+    enhanced,
+    detach title,
+    sharp corners,
+    frame hidden,
+    boxrule=0pt,
+    before upper=\tcbtitle\setlength{\parskip}{5pt}\par,
+    fonttitle={\sffamily\bfseries},
+    coltitle=CorTitleColor,
+    colback=CorColor,
+    coltext=TextColor,
+    borderline west={3pt}{0pt}{CorTitleColor},
+    parbox=false,
+}
+{cor}
+
+\newtcbtheorem[number within=section]{propbox}{Proposition}{
+    enhanced,
+    detach title,
+    sharp corners,
+    frame hidden,
+    boxrule=0pt,
+    before upper=\tcbtitle\setlength{\parskip}{5pt}\par,
+    fonttitle={\sffamily\bfseries},
+    coltitle=PropTitleColor,
+    colback=PropColor,
+    coltext=TextColor,
+    borderline west={3pt}{0pt}{PropTitleColor},
+    parbox=false,
+}
+{prp}
+
+\newtcbtheorem[number within=section]{lemmabox}{Lemma}{
+    enhanced,
+    detach title,
+    frame hidden,
+    attach title to upper=\quad,
+    fonttitle={\sffamily\bfseries},
+    coltitle=LemmaTitleColor,
+    coltext=TextColor,
+    borderline={1pt}{0pt}{LemmaTitleColor},
+    opacityback=0,
+    parbox=false,
+}
+{lemma}
+
+\newtcbtheorem[number within=section]{examplebox}{Example}{
+    enhanced,
+    detach title,
+    sharp corners,
+    frame hidden,
+    boxrule=0pt,
+    breakable,
+    before upper=\tcbtitle\setlength{\parskip}{5pt}\par,
+    fonttitle={\sffamily\bfseries},
+    description font={\bfseries},
+    coltitle=ExampleTitleColor,
+    colback=ExampleColor,
+    coltext=TextColor,
+    borderline west={3pt}{0pt}{ExampleTitleColor},
+    parbox=false,
+}
+{ex}
+
+\newtcolorbox[auto counter, number within=section]{prob}[2][]{
+    enhanced,
+    detach title,
+    sharp corners,
+    frame hidden,
+    boxrule=0pt,
+    enforce breakable,
+    before upper=\tcbtitle\setlength{\parskip}{5pt}\par,
+    % title={Problem~\thetcbcounter \ifstrempty{#2}{}{:\ #2}},
+    title={Problem~\thetcbcounter \ifstrempty{#2}{}{\ (#2)}},
+    fonttitle={\sffamily\bfseries},
+    description font={\bfseries},
+    coltitle=ProblemTitleColor,
+    colback=ProblemColor,
+    coltext=TextColor,
+    borderline west={3pt}{0pt}{ProblemTitleColor},
+    parbox=false,
+    segmentation style={%
+            draw=ProblemTitleColor,
+            solid,
+            decorate,
+            decoration={coil, aspect = 0, segment length=8.15mm},
+        },
+    #1
 }
 
-\newtcolorbox[auto counter]{solution}[2][]{
-	enhanced,
-	frame hidden,
-	attach boxed title to top right={yshift=-0.5\baselineskip,xshift=-1em},
-	title={Solution #2},
-	coltitle=TextColor,
-	coltext=TextColor,
-	borderline={1pt}{0pt}{TextColor},
-	opacityback=0,
-	boxrule=0.5pt,
-	arc=3mm,
-	breakable,
-	parbox=false,
-	boxed title style={
-			colframe=TextColor,
-			colback=PageColor,
-			borderline={1pt}{0pt}{TextColor},
-			arc=2mm,
-		},
-	#1
+% Callout boxes, kind of similar to Markdown style--they follow the same pattern.
+% So, you can create as many as you want by just calling \newtcolorbox with the calloutbox style.
+% See below for two examples: `warn` and `info`.
+\tcbset{
+    calloutbox/.style 2 args={
+            enhanced,
+            breakable,
+            frame hidden,
+            sharp corners,
+            detach title,
+            opacityback=0,
+            fonttitle={\sffamily\bfseries},
+            coltitle=#1,
+            coltext=TextColor,
+            before upper={%
+                    \tcbtitle\par
+                },
+            underlay={%
+                    \coordinate (center) at ($(interior.north west) + (0pt,-12pt)$);
+                    \begin{scope}
+                        \draw[color=#1,very thick] (center) circle (5pt);
+                        \node at (center){\color{#1}\scriptsize\bf #2};
+                        \draw[line width=1.5pt,color=#1]
+                        ([shift={(0pt,-20pt)}]interior.north west)
+                        --([shift={(0pt,5pt)}]interior.south west);
+                    \end{scope}
+                },
+        },
 }
 
 \newtcolorbox[auto counter]{warn}[2][]{
-	enhanced,
-	breakable,
-	frame hidden,
-	sharp corners,
-	detach title,
-	opacityback=0,
-	title={\textbf{#2}},
-	coltitle=WarnColor,
-	coltext=TextColor,
-	before upper={%
-			\tcbtitle\par
-		},
-	underlay={%
-			\coordinate (center) at ($(interior.north west) + (0pt,-12pt)$);
-			\begin{scope}
-				\draw[color=WarnColor,very thick] (center) circle (5pt);
-				\node at (center){\color{WarnColor}\scriptsize\bf ?};
-				\draw[line width=1.5pt,color=WarnColor]
-				([shift={(0pt,-20pt)}]interior.north west)
-				--([shift={(0pt,5pt)}]interior.south west);
-			\end{scope}
-		},
-	#1
+    calloutbox={WarnColor}{?},
+    title={#2},
+    #1
 }
 
 \newtcolorbox[auto counter]{info}[2][]{
-	enhanced,
-	breakable,
-	frame hidden,
-	sharp corners,
-	detach title,
-	opacityback=0,
-	title={\textbf{#2}},
-	coltitle=InfoColor,
-	coltext=TextColor,
-	before upper={%
-			\tcbtitle\par
-		},
-	underlay={%
-			\coordinate (center) at ($(interior.north west) + (0pt,-12pt)$);
-			\begin{scope}
-				\draw[color=InfoColor,very thick] (center) circle (5pt);
-				\node at (center){\color{InfoColor}\scriptsize\bf i};
-				\draw[line width=1.5pt,color=InfoColor]
-				([shift={(0pt,-20pt)}]interior.north west)
-				--([shift={(0pt,5pt)}]interior.south west);
-			\end{scope}
-		},
-	#1
+    calloutbox={InfoColor}{i},
+    title={#2},
+    #1
 }

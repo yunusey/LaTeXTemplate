@@ -1,54 +1,65 @@
-\usepackage[mocha]{catppuccinpalette}
 \usepackage[most]{tcolorbox}
 
 \lstdefinestyle{codelistingstyle}{
-	breaklines=true,
-	showstringspaces=false,
-	breakatwhitespace=true,
-	stringstyle = {\color{CtpGreen}},
-	commentstyle={\color{CtpOverlay1}},
-	basicstyle = {\small\color{CtpText}\ttfamily},
-	keywordstyle = {\color{CtpMauve}},
-	keywordstyle = [2]{\color{CtpBlue}},
-	keywordstyle = [3]{\color{CtpYellow}},
-	keywordstyle = [4]{\color{CtpLavender}},
-	keywordstyle = [5]{\color{CtpPeach}},
-	keywordstyle = [6]{\color{CtpTeal}},
-	otherkeywords = {<, >, ||, =, ?},
-	morekeywords = [2]{new, create, present, email, description, creator, protect_from_forgery, before_action},
-	morekeywords = [3]{PageController, ApplicationController, Page},
-	morekeywords = [4]{@page},
-	morekeywords = [5]{exception, do_some_for_pages, @page, @admin},
-	morekeywords = [6]{<, >, ||, =, ?},
-	gobble=4
+    breaklines=true,
+    showstringspaces=false,
+    breakatwhitespace=true,
+    tabsize=4,
+    mathescape,
+    stringstyle = {\color{CtpGreen}},
+    commentstyle={\color{CtpOverlay1}},
+    identifierstyle={\color{CtpText}},
+    basicstyle = {
+            \color{CtpText}\ttfamily\small
+        },
+    keywordstyle = {\color{CtpMauve}},
+    keywordstyle = [2]{\color{CtpBlue}},
+    keywordstyle = [3]{\color{CtpYellow}},
+    keywordstyle = [4]{\color{CtpLavender}},
+    keywordstyle = [5]{\color{CtpPeach}},
+    keywordstyle = [6]{\color{CtpTeal}},
+    otherkeywords = {<, >, ||, =, ?, *, /, +, -, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+    morekeywords = [5]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+    morekeywords = [6]{<, >, ->, =>, ||, =, ?, *, /, +, -},
+    emph={int, char, float, double, unsigned, str},
+    emphstyle={\color{CtpBlue}},
+    gobble=4
 }
 
 \newtcblisting{codelisting}[2][]{%
-	enhanced,
-	listing engine=listings,
-	arc=3mm,
-	boxrule=0.5mm,
-	colback={CtpBase},
-	listing only,
-	listing options={
-			language={#2},
-			style={codelistingstyle}
-		},
-	overlay={
-			% Positioning the language label in the top right corner
-			\node[
-				anchor=north east,
-				font=\small\ttfamily\bfseries,
-				text=white,
-				draw=CtpOverlay1,
-				fill=CtpMantle,
-				inner sep=2pt,
-				rounded corners=3pt,
-				line width=0.3mm,
-				xshift=-1.5mm,
-				yshift=-1.0mm
-			]
-			at (frame.north east) {#2};
-		},
-	#1
+    enhanced,
+    listing engine=listings,
+    arc=3mm,
+    boxrule=0.3mm,
+    left=6mm,
+    colback={CtpBase},
+    colframe={CtpText},
+    listing only,
+    listing options={
+            language={#2},
+            style={codelistingstyle},
+            numbers=left,
+            numberstyle={\small\ttfamily\color{CtpSubtext1}},
+        },
+    overlay={
+            % Show language label only if #2 (language) is not empty
+            \if\relax\detokenize{#2}\relax
+                % Do nothing if #2 is empty
+            \else
+                \node[
+                    anchor=north east,
+                    font={\ttfamily\small},
+                    text={CtpSubtext1},
+                    draw={CtpText},
+                    fill=CtpMantle,
+                    inner sep=2pt,
+                    rounded corners=3pt,
+                    line width=0.3mm,
+                    xshift=0mm,
+                    yshift=0.0mm
+                ]
+                at (frame.north east) {#2};
+            \fi
+        },
+    #1
 }
